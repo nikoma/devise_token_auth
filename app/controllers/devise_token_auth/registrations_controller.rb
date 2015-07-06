@@ -1,7 +1,7 @@
 module DeviseTokenAuth
   class RegistrationsController < DeviseTokenAuth::ApplicationController
     before_filter :set_user_by_token, :only => [:destroy, :update]
-    before_filter :validate_sign_up_params, :only => :create
+    #before_filter :validate_sign_up_params, :only => :create
     before_filter :validate_account_update_params, :only => :update
     skip_after_filter :update_auth_header, :only => [:create, :destroy]
 
