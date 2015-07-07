@@ -1,7 +1,7 @@
 module DeviseTokenAuth
   class RegistrationsController < DeviseTokenAuth::ApplicationController
     before_filter :set_user_by_token, :only => [:destroy, :update]
-    #before_filter :validate_sign_up_params, :only => :create
+    before_filter :validate_sign_up_params, :only => :create
     before_filter :validate_account_update_params, :only => :update
     skip_after_filter :update_auth_header, :only => [:create, :destroy]
 
@@ -132,7 +132,7 @@ module DeviseTokenAuth
     end
 
     def sign_up_params
-      params.permit(devise_parameter_sanitizer.for(:sign_up))
+      params.permit(devise_parameter_sanitizer.for(:sign_up){ |u| u.permit(:email,   :password, :password_confirmation, :confirm_success_url, :config_name, :firstname, :middlename, :lastname, :nickname)})
     end
 
     def account_update_params
